@@ -19,12 +19,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let jogos of listaJogos" class="border-b border-gray-200 ">
-          <td class="px-6 py-4 whitespace-nowrap">{{ jogos.nome }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ jogos.preco }}</td>
+        <tr *ngFor="let jogo of listaJogos" class="border-b border-gray-200 ">
+          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.nome }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.preco }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
             <div class="justify-center space-x-2">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center"
+                (click)="visualizarJogoCadastrado(jogo.id)"
+              >
                 <i class="material-icons mr-2">remove_red_eye</i>
                 Visualizar
               </button>

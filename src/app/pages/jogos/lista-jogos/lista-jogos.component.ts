@@ -29,4 +29,8 @@ export class ListaJogosComponent implements OnInit {
       this.listaJogos = dados;
     })
   }
+
+  visualizarJogoCadastrado(id: number): void {
+    this.router.navigate(['visualizar-jogo', id]);
+  }
 }
