@@ -1,59 +1,62 @@
 <app-spinner [isLoading]="loading"></app-spinner>
 
-<div class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="max-w-md w-full p-10 bg-white shadow-lg rounded-md">
-    <h1 class="text-2xl font-semibold text-gray-800 text-center border-b-2 border-black pb-1 espacamento-titulo">Visualizar Jogo</h1>
-    <form class="space-y-4" [formGroup]="form">
-      <div class="space-y-4">
-        <div>
-          <label class="block text-gray-700">Nome:</label>
-          <input
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-            type="text"
-            name="nome"
-            formControlName="nome"
-          >
+<div class="flex flex-col min-h-screen bg-gray-100">
+  <div class="flex-grow flex items-center justify-center py-10">
+    <div class="max-w-md w-full p-10 bg-white shadow-lg rounded-md">
+      <h1 class="text-2xl font-semibold text-gray-800 text-center border-b-2 border-black pb-1 espacamento-titulo">Visualizar Jogo</h1>
+      <form class="space-y-4" [formGroup]="form">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-gray-700">Nome:</label>
+            <input
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              type="text"
+              name="nome"
+              formControlName="nome"
+            >
+          </div>
+          <div>
+            <label class="block text-gray-700">Preço:</label>
+            <input
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              type="number"
+              nome="preco"
+              formControlName="preco"
+            >
+          </div>
+          <div>
+            <label class="block text-gray-700">Dimensão da Caixa:</label>
+            <select id="dimensao" formControlName="dimensaoCaixa" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+              <option value="" disabled>Selecione uma caixa</option>
+              <option *ngFor="let caixa of caixas" [value]="caixa.id">
+                {{ caixa.altura }} x {{ caixa.largura }} x {{ caixa.comprimento }}
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-gray-700">Descrição:</label>
+            <textarea
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+              rows="4"
+              formControlName="descricao">
+            </textarea>
+          </div>
+          <div *ngIf="imagePreview" class="mt-4">
+            <label class="block text-gray-700">Imagem da Capa:</label>
+            <img [src]="imagePreview" alt="Imagem da Capa" class="mt-2 w-32 h-32 object-cover rounded-md">
+          </div>
         </div>
-        <div>
-          <label class="block text-gray-700">Preço:</label>
-          <input
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-            type="number"
-            nome="preco"
-            formControlName="preco"
-          >
-        </div>
-        <div>
-          <label class="block text-gray-700">Dimensão da Caixa:</label>
-          <select id="dimensao" formControlName="dimensaoCaixa" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-            <option value="" disabled>Selecione uma caixa</option>
-            <option *ngFor="let caixa of caixas" [value]="caixa.id">
-              {{ caixa.altura }} x {{ caixa.largura }} x {{ caixa.comprimento }}
-            </option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-gray-700">Descrição:</label>
-          <textarea
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-            rows="4"
-            formControlName="descricao">
-          </textarea>
-        </div>
-         <div *ngIf="imagePreview" class="mt-4">
-          <label class="block text-gray-700">Imagem da Capa:</label>
-          <img [src]="imagePreview" alt="Imagem da Capa" class="mt-2 w-32 h-32 object-cover rounded-md">
-        </div>
+      </form>
+      <div class="flex justify-center space-x-4 espacamento-botao mt-6">
+        <button
+          type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center"
+          (click)="voltar()"
+        >
+          <i class="material-icons mr-2">arrow_back</i>
+          Voltar
+        </button>
       </div>
-    </form>
-    <div class="flex justify-center space-x-4 espacamento-botao">
-      <button
-        type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center"
-        (click)="voltar()"
-      >
-        <i class="material-icons mr-2">arrow_back</i>
-        Voltar
-      </button>
     </div>
   </div>
+  <app-footer></app-footer>
 </div>

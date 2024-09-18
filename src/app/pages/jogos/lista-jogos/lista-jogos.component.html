@@ -1,17 +1,16 @@
 <app-spinner [isLoading]="loading"></app-spinner>
 
 <div class="min-h-screen bg-gray-100 flex flex-col">
-  <!-- Header -->
   <header class="bg-white shadow-md p-4 flex justify-between items-center">
     <h1 class="text-2xl font-bold flex-1">Lista de Jogos</h1>
     <button class="flex items-center px-2 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
-    (click)="novoJogo()">
+      (click)="novoJogo()">
       <i class="material-icons">add</i>
       Novo Jogo
     </button>
   </header>
 
-  <div class="overflow-x-auto py-10 px-10 mb-5">
+  <div class="flex-grow overflow-x-auto py-10 px-10">
     <table class="w-full divide-y divide-gray-200" *ngIf="listaJogos.length > 0; else emptyList">
       <thead>
         <tr class="bg-gray-200 text-center">
@@ -22,12 +21,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let jogo of listaJogos" class="border-b border-gray-200 ">
+        <tr *ngFor="let jogo of listaJogos" class="border-b border-gray-200">
           <td class="px-6 py-4 whitespace-nowrap">{{ jogo.nome }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ jogo.preco | currency }}</td>
           <td class="px-6 py-4 whitespace-nowrap">{{ jogo.dimensaoCaixa }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <div class="justify-center space-x-2">
+            <div class="flex justify-center space-x-2">
               <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center"
                 (click)="visualizarJogoCadastrado(jogo.id)"
@@ -40,7 +39,11 @@
         </tr>
       </tbody>
     </table>
-    <ng-template #emptyList class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+
+    <ng-template #emptyList>
       <p class="text-center mt-5 text-lg"><strong>Nenhum jogo cadastrado até o momento!</strong></p>
     </ng-template>
+  </div>
+
+  <app-footer class="mt-auto"></app-footer>
 </div>
