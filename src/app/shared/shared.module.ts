@@ -3,17 +3,20 @@ import { CommonModule } from '@angular/common';
 
 //Components
 import { SpinnerComponent } from './spinner/spinner.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
   declarations: [
-    SpinnerComponent
+    SpinnerComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    SpinnerComponent
+    SpinnerComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }
