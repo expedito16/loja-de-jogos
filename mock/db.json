@@ -1,0 +1,12 @@
+{
+  "listaJogos": [
+    {
+      "id": "ec9e",
+      "nome": "teste",
+      "preco": 100,
+      "dimensaoCaixa": "2",
+      "descricao": "teste",
+      "imagem": "C:\\fakepath\\will.jpg"
+    }
+  ]
+}
