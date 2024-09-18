@@ -1,1 +1,85 @@
-<p>novo-jogo works!</p>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="max-w-md w-full p-10 bg-white shadow-lg rounded-md">
+    <h1 class="text-2xl font-semibold text-gray-800 text-center border-b-2 border-black pb-1 espacamento-titulo">Novo Jogo</h1>
+    <form class="space-y-4" [formGroup]="form">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-gray-700">Nome*</label>
+          <input
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            type="text"
+            name="nome"
+            formControlName="nome"
+          >
+        </div>
+        <span
+          *ngIf="form.hasError('required', 'nome') && form.controls['nome'].dirty"
+          class="text-red-500"
+        >
+          *Nome é obrigatorio!
+        </span>
+        <div>
+          <label class="block text-gray-700">Preço*</label>
+          <input
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            type="number"
+            nome="preco"
+            formControlName="preco"
+          >
+        </div>
+        <span
+          *ngIf="form.hasError('required', 'preco') && form.controls['preco'].dirty"
+          class="text-red-500"
+        >
+          *Preço é obrigatorio!
+        </span>
+        <div>
+          <label for="dimensao" class="block text-gray-700">Dimensão da Caixa</label>
+          <select id="dimensao" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                  (change)="onSelectCaixa($event)" required>
+            <option value="" disabled selected>Selecione uma caixa</option>
+            <option *ngFor="let caixa of caixas" [value]="caixa.id">
+              {{ caixa.altura }} x {{ caixa.largura }} x {{ caixa.comprimento }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="caixaSelecionada">
+          <p class="text-gray-700">Caixa Selecionada: {{ caixaSelecionada.altura }} x {{ caixaSelecionada.largura }} x {{ caixaSelecionada.comprimento }}</p>
+        </div>
+        <div>
+          <label class="block text-gray-700">Descrição*</label>
+          <textarea
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            rows="4"
+            formControlName="descricao">
+          </textarea>
+        </div>
+        <div>
+          <label class="block text-gray-700">Imagem da Capa*</label>
+          <input
+            class="mt-1 block w-full text-gray-500 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+            type="file"
+            name="imagem"
+            formControlName="imagem"
+          >
+        </div>
+      </div>
+    </form>
+    <div class="flex justify-center space-x-4 espacamento-botao">
+      <button type="button" class="flex items-center px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-md"
+      (click)="cancelar()">
+        <i class="material-icons mr-2">cancel</i>
+        Cancelar
+      </button>
+      <button
+        class="flex items-center px-4 py-2 text-white bg-green-600 hover:bg-green-700 rounded-md"
+        [disabled]="form.invalid"
+        [class.disabled]="form.invalid"
+        (click)="cadastrar()"
+      >
+        <i class="material-icons mr-2">save</i>
+        Cadastrar
+      </button>
+    </div>
+  </div>
+</div>
