@@ -11,37 +11,43 @@
   </header>
 
   <div class="flex-grow overflow-x-auto py-10 px-10">
-    <table class="w-full divide-y divide-gray-200" *ngIf="listaJogos.length > 0; else emptyList">
-      <thead>
-        <tr class="bg-gray-200 text-center">
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preço</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dimensão da caixa</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Botão</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let jogo of listaJogos" class="border-b border-gray-200">
-          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.nome }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.preco | currency }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.dimensaoCaixa }}</td>
-          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-            <div class="flex justify-center space-x-2">
-              <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center"
-                (click)="visualizarJogoCadastrado(jogo.id)"
-              >
-                <i class="material-icons mr-2">remove_red_eye</i>
-                Visualizar
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="listaJogos.length > 0; else emptyList">
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <td mat-cell *matCellDef="let jogo"> {{jogo.nome}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef> Preço </th>
+        <td mat-cell *matCellDef="let jogo"> {{jogo.preco | currency}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dimensaoCaixa">
+        <th mat-header-cell *matHeaderCellDef> Dimensão da Caixa </th>
+        <td mat-cell *matCellDef="let jogo"> {{jogo.dimensaoCaixa}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef> Ações </th>
+        <td mat-cell *matCellDef="let jogo">
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center"
+            (click)="visualizarJogoCadastrado(jogo.id)"
+          >
+            <i class="material-icons mr-2">remove_red_eye</i>
+            Visualizar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
+    <mat-paginator [length]="listaJogos.length" [pageSize]="5" showFirstLastButtons></mat-paginator>
+
     <ng-template #emptyList>
-      <p class="text-center mt-5 text-lg"><strong>Nenhum jogo cadastrado até o momento!</strong></p>
+      <p class="text-center mt-5 mb-5 text-lg"><strong>Nenhum jogo cadastrado até o momento!</strong></p>
     </ng-template>
   </div>
 

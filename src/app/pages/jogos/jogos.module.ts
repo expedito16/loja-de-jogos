@@ -6,6 +6,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { JogosRoutingModule } from './jogos-routing.module';
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 registerLocaleData(ptBr);
 
@@ -28,7 +30,9 @@ import { VisualizarJogoComponent } from './visualizar-jogo/visualizar-jogo.compo
     CommonModule,
     JogosRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
