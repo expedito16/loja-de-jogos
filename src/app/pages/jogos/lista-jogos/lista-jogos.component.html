@@ -1,1 +1,39 @@
-<p>lista-jogos works!</p>
+<div class="min-h-screen bg-gray-100 flex flex-col">
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold flex-1">Lista de Jogos</h1>
+    <button class="flex items-center px-2 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600"
+    (click)="novoJogo()">
+      <i class="material-icons">add</i>
+      Novo Jogo
+    </button>
+  </header>
+
+  <div class="overflow-x-auto py-10 px-10 mb-5">
+    <table class="w-full divide-y divide-gray-200" *ngIf="listaJogos.length > 0; else emptyList">
+      <thead>
+        <tr class="bg-gray-200 text-center">
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preço</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Botão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let jogos of listaJogos" class="border-b border-gray-200 ">
+          <td class="px-6 py-4 whitespace-nowrap">{{ jogos.nome }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ jogos.preco }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <div class="justify-center space-x-2">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded flex items-center">
+                <i class="material-icons mr-2">remove_red_eye</i>
+                Visualizar
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #emptyList class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3">
+      <p class="text-center mt-5 text-lg"><strong>Nenhum jogo cadastrado até o momento!</strong></p>
+    </ng-template>
+</div>
