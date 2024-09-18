@@ -12,6 +12,7 @@ export class NovoJogoComponent implements OnInit {
 
   form!: FormGroup;
   caixaSelecionada: any;
+  imagePreview: string | ArrayBuffer | null = null;
   loading: boolean = false;
 
   caixas = [
@@ -35,15 +36,37 @@ export class NovoJogoComponent implements OnInit {
       nome: ['', [Validators.required, Validators.min(0)]],
       preco: ['', Validators.required],
       dimensaoCaixa: ['', Validators.required],
-      descricao: ['', Validators.required],
-      imagem: [null , Validators.required],
+      descricao: ['']
     });
+  }
+
+  onPrecoInput(event: any): void {
+    let value = event.target.value;
+    value = value.replace(/\D/g, '');
+    const decimalValue = parseFloat(value) / 100;
+    event.target.value = decimalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    this.form.get('preco')!.setValue(decimalValue.toFixed(2));
   }
 
   onSelectCaixa(event: any) {
     const caixaId = event.target.value;
     this.caixaSelecionada = this.caixas.find(caixa => caixa.id === +caixaId);
-    this.form.get('dimensaoCaixa')?.setValue(caixaId);
+
+    if (this.caixaSelecionada) {
+      const dimensaoFormatada = `${this.caixaSelecionada.altura} x ${this.caixaSelecionada.largura} x ${this.caixaSelecionada.comprimento}`;
+      this.form.get('dimensaoCaixa')?.setValue(dimensaoFormatada);
+    }
+  }
+
+  onImageSelected(e: any): void {
+    if (e.target.files) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (event: any) => {
+        this.imagePreview = event.target.result;
+      };
+      reader.readAsDataURL(e.target.file);
+    }
   }
 
   cancelar(): void {
@@ -57,9 +80,8 @@ export class NovoJogoComponent implements OnInit {
       const preco = this.form.get('preco')!.value;
       const dimensaoCaixa = this.form.get('dimensaoCaixa')!.value;
       const descricao = this.form.get('descricao')!.value;
-      const imagem = this.form.get('imagem')!.value;
 
-      const dados = { nome: nome, preco: preco, dimensaoCaixa: dimensaoCaixa, descricao: descricao, imagem: imagem }
+      const dados = { nome: nome, preco: preco, dimensaoCaixa: dimensaoCaixa, descricao: descricao, imagem: this.imagePreview }
       this.service.criarNovoJogo(dados).subscribe(() => {
         this.router.navigate(['lista-jogos']);
         this.loading = false;

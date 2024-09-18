@@ -17,13 +17,15 @@
         <tr class="bg-gray-200 text-center">
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Preço</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dimensão da caixa</th>
           <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Botão</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let jogo of listaJogos" class="border-b border-gray-200 ">
           <td class="px-6 py-4 whitespace-nowrap">{{ jogo.nome }}</td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.preco }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.preco | currency }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ jogo.dimensaoCaixa }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
             <div class="justify-center space-x-2">
               <button
