@@ -19,4 +19,8 @@ export class JogosService {
   criarNovoJogo(jogo: any): Observable<any> {
     return this.http.post(this.url, jogo);
   }
+
+  visualizarJogoCriadoPorId(id: number): Observable<any> {
+    return this.http.get(`${this.url}/${id}`);
+  }
 }
