@@ -12,6 +12,7 @@ export class NovoJogoComponent implements OnInit {
 
   form!: FormGroup;
   caixaSelecionada: any;
+  loading: boolean = false;
 
   caixas = [
     { id: 1, altura: 30, largura: 40, comprimento: 80 },
@@ -51,6 +52,7 @@ export class NovoJogoComponent implements OnInit {
 
   cadastrar(): void {
     if (this.form.valid) {
+      this.loading = true;
       const nome = this.form.get('nome')!.value;
       const preco = this.form.get('preco')!.value;
       const dimensaoCaixa = this.form.get('dimensaoCaixa')!.value;
@@ -60,6 +62,7 @@ export class NovoJogoComponent implements OnInit {
       const dados = { nome: nome, preco: preco, dimensaoCaixa: dimensaoCaixa, descricao: descricao, imagem: imagem }
       this.service.criarNovoJogo(dados).subscribe(() => {
         this.router.navigate(['lista-jogos']);
+        this.loading = false;
       });
     }
   }

@@ -13,6 +13,7 @@ export class VisualizarJogoComponent implements OnInit {
   id: number = 0;
   form!: FormGroup;
   caixaSelecionada: any;
+  loading: boolean = false;
 
   caixas = [
     { id: 1, altura: 30, largura: 40, comprimento: 80 },
@@ -49,8 +50,10 @@ export class VisualizarJogoComponent implements OnInit {
   }
 
   carregarDadosDoJogo() {
+    this.loading = true;
     this.id = this.route.snapshot.params['id'];
     this.service.visualizarJogoCriadoPorId(this.id).subscribe(jogo => {
+      this.loading = false;
       this.form.patchValue({
         nome: jogo.nome,
         preco: jogo.preco,

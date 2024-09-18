@@ -10,6 +10,7 @@ import { JogosService } from '../jogos.service';
 export class ListaJogosComponent implements OnInit {
 
   listaJogos: any[] = [];
+  loading: boolean = false;
 
   constructor(
     private router: Router,
@@ -25,8 +26,10 @@ export class ListaJogosComponent implements OnInit {
   }
 
   getlistaJogos(): void {
+    this.loading = true;
     this.service.getListaJogos().subscribe((dados) => {
       this.listaJogos = dados;
+      this.loading = false;
     })
   }
 
